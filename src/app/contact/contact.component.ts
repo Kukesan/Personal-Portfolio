@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppService } from '../app.service';
 import { SharedScrollService } from '../shared/shared-scroll.service';
-import { Subscription } from 'rxjs';
+import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -96,8 +96,7 @@ export class ContactComponent implements OnInit {
     elements.forEach((element: any) => this.observer.observe(element));
   }
 
-  addContactDetails() {
-    console.log(this.contactForm.value)
+  addContactDetails(e: Event) {
     this.http.post(environment.firebaseConfig.databaseURL+'/contact.json', this.contactForm.value).subscribe(
       (response: any) => {
         console.log(response)
@@ -105,5 +104,20 @@ export class ContactComponent implements OnInit {
         this.showSuccessMessage = true;
       }
     )
+
+    e.preventDefault();
+
+    emailjs
+      .sendForm('service_ydq0bkz', 'template_8f0gqmq', e.target as HTMLFormElement, {
+        publicKey: 'GgsWzIi7JqBGcIcrg',
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+        },
+        (error) => {
+          console.log('FAILED...', (error as EmailJSResponseStatus).text);
+        },
+      );
   }
 }

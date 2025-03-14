@@ -7,12 +7,12 @@
     </div>
     <div class="portfolio-box" id="contact">
         <div class="left-content" id="left-content">
-            <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="addContactDetails()">
+            <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="addContactDetails($event)">
                 <!-- Form fields -->
                 <p class="contact-title">Send me a Message</p>
                 <div class="first-row">
                     <div class="contact-form-name contact-cell">
-                        <input type="text" placeholder="Your name" formControlName="name" class="contact-form-col">
+                        <input type="text" placeholder="Your name" formControlName="name" name="name" class="contact-form-col">
                         <div *ngIf="contactForm.get('name')?.invalid && (contactForm.get('name')?.dirty || contactForm.get('name')?.touched)"
                             class="error-message">
                             <div *ngIf="contactForm.get('name')?.errors?.required">Name is required.</div>
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="contact-form-phone contact-cell">
-                        <input type="text" placeholder="Your phone" formControlName="contactNo"
+                        <input type="text" placeholder="Your phone" formControlName="contactNo" name="contactNo"
                             class="contact-form-col">
                         <div *ngIf="contactForm.get('contactNo')?.invalid && (contactForm.get('contactNo')?.dirty || contactForm.get('contactNo')?.touched)"
                             class="error-message">
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="contact-form-email contact-cell">
-                    <input type="email" placeholder="Your email" formControlName="email" class="contact-form-col">
+                    <input type="email" placeholder="Your email" formControlName="email" name="email" class="contact-form-col">
                     <div *ngIf="contactForm.get('email')?.invalid && (contactForm.get('email')?.dirty || contactForm.get('email')?.touched)"
                         class="error-message">
                         <div *ngIf="contactForm.get('email')?.errors?.required">Email is required.</div>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="contact-form-message contact-cell">
-                    <input type="text" placeholder="Message" formControlName="message" class="contact-form-col">
+                    <input type="text" placeholder="Message" formControlName="message" name="message" class="contact-form-col">
                     <div *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)"
                         class="error-message">
                         <div *ngIf="contactForm.get('message')?.errors?.required">Message is required.</div>
